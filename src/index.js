@@ -5,21 +5,20 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import todoApp from './reducers';
 import App from './components/App';
+import { loadState, saveState } from './localStorage';
 
-const persistedState = {
-  todos: [{
-    id: '0',
-    text: 'Welcome back',
-    completed: false,
-  }],
-};
+const persistedState = loadState();
 const store = createStore(
   todoApp,
   persistedState
 );
-// Lo stato impostato da createStore sovrascrive quello impostato dai singoli reducers.
-// In questo caso, avendo impostato solo quello dell'oggetto todos
-// lo stato del visibilityFilter è preso dal suo reducer ('SHOW_ALL')
+
+// Salvo lo stato nel localStorage ogni volta che cambia
+store.subscribe(() => {
+  saveState({
+    todos: store.getState().todos,
+  });
+});
 
 render(
   <Provider store={store}>
