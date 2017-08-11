@@ -3,20 +3,12 @@ import Footer from './Footer';
 import AddTodo from './AddTodo';
 import VisibleTodoList from './VisibleTodoList';
 
-// params è un oggetto che Router rende disponibile ai componenti che gestisce
-// In Root.js <Route path="/(:filter)" component={App} />
-const App = ({ params }) => (
+const App = () => (
   <div>
     <AddTodo />
-    <VisibleTodoList
-      filter={params.filter}
-    />
+    <VisibleTodoList />
     <Footer />
   </div>
 );
-
-App.propTypes = {
-  params: PropTypes.object.isRequired,
-};
 
 export default App;
