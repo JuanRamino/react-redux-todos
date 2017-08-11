@@ -6,7 +6,20 @@ import { createStore } from 'redux';
 import todoApp from './reducers';
 import App from './components/App';
 
-const store = createStore(todoApp);
+const persistedState = {
+  todos: [{
+    id: '0',
+    text: 'Welcome back',
+    completed: false,
+  }],
+};
+const store = createStore(
+  todoApp,
+  persistedState
+);
+// Lo stato impostato da createStore sovrascrive quello impostato dai singoli reducers.
+// In questo caso, avendo impostato solo quello dell'oggetto todos
+// lo stato del visibilityFilter è preso dal suo reducer ('SHOW_ALL')
 
 render(
   <Provider store={store}>
